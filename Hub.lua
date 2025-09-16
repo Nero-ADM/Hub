@@ -1,5 +1,5 @@
 
-local Libary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nero-ADM/Hub/refs/heads/main/Hub.lua"))()
+local Libary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nero-ADM/Oren/refs/heads/main/README.md?token=GHSAT0AAAAAADKWPRWGIYO437JGYU63UROC2GE2S2A"))()
 workspace.FallenPartsDestroyHeight = -math.huge
 
 local Window = Libary:MakeWindow({
@@ -174,15 +174,6 @@ window:Toggle("Blackhole", true, function(Value)
         else
             blackHoleActive = false
         end
-end)
-
-spawn(function()
-    while true do
-        RunService.RenderStepped:Wait()
-        if blackHoleActive then
-            angle = angle + math.rad(angleSpeed)
-        end
-    end
 end)
 
 toggleBlackHole()
@@ -1866,17 +1857,26 @@ local function ActiveAutoFling(targetPlayer)
                     Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
                     workspace.CurrentCamera.CameraSubject = Humanoid
 
-                    repeat
+                    RootPart.CFrame = getgenv().OldPos * CFrame.new(0, .5, 0)
+                    Character:SetPrimaryPartCFrame(getgenv().OldPos * CFrame.new(0, .5, 0))
+                    Humanoid:ChangeState("GettingUp")
+                    for _, x in ipairs(Character:GetChildren()) do
+                        if x:IsA("BasePart") then
+                            x.Velocity, x.RotVelocity = Vector3.new(), Vector3.new()
+                        end
+                    end
+                    task.wait()
+                    while (RootPart.Position - getgenv().OldPos.p).Magnitude >= 25 do
                         RootPart.CFrame = getgenv().OldPos * CFrame.new(0, .5, 0)
                         Character:SetPrimaryPartCFrame(getgenv().OldPos * CFrame.new(0, .5, 0))
                         Humanoid:ChangeState("GettingUp")
-                        table.foreach(Character:GetChildren(), function(_, x)
+                        for _, x in ipairs(Character:GetChildren()) do
                             if x:IsA("BasePart") then
                                 x.Velocity, x.RotVelocity = Vector3.new(), Vector3.new()
                             end
-                        end)
+                        end
                         task.wait()
-                    until (RootPart.Position - getgenv().OldPos.p).Magnitude < 25
+                    end
 
                     workspace.FallenPartsDestroyHeight = getgenv().FPDH
                 end
@@ -3331,21 +3331,21 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcf
 wait()
 duping = false
 
-for wwefef,weifwwe in pairs(game.Players:GetPlayers()) do
-    if weifwwe.Name == game.Players.LocalPlayer.Name == false then
-        ewoifjwoifjiwo = wwefef
+local couch_idx = 1
+for _, tool in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if tool.Name == "Couch" then
+        tool.Name = "couch" .. couch_idx
+        couch_idx = couch_idx + 1
     end
 end
-for m=1,ewoifjwoifjiwo do
-    game.Players.LocalPlayer.Backpack.Couch.Name = "couch"..m
-end
-wait()
-for weofefawd,iwiejguiwg in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-    if iwiejguiwg.Name == "couch"..weofefawd then
+
+task.wait()
+for _, iwiejguiwg in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if string.match(iwiejguiwg.Name, "^couch%d+$") then
         iwiejguiwg.Handle.Name = "Handle "
     end
 end
-wait(0.2)
+task.wait(0.2)
 local function bring(skjdfuwiruwg,woiejewg)
     if woiejewg == nil == false then
         game.Players.LocalPlayer.Backpack["couch"..skjdfuwiruwg]:FindFirstChild("Seat1").Disabled = true
@@ -3395,11 +3395,14 @@ local function bring(skjdfuwiruwg,woiejewg)
         game.Players.LocalPlayer.Character["couch"..skjdfuwiruwg].Parent = game.Players.LocalPlayer.Backpack
     end
 end
-for mwef,weuerg in pairs(game.Players:GetPlayers()) do
-    if weuerg.Name == game.Players.LocalPlayer.Name == false then
-        spawn(function()
-            bring(mwef,weuerg)
+
+local player_idx = 1
+for _, weuerg in ipairs(game.Players:GetPlayers()) do
+    if weuerg ~= game.Players.LocalPlayer then
+        task.spawn(function()
+            bring(player_idx, weuerg)
         end)
+        player_idx = player_idx + 1
     end
 end
     end
@@ -3570,23 +3573,24 @@ until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") == n
 repeat 
     wait() 
 until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcf 
-wait() 
-duping = false 
-for wwefef,weifwwe in pairs(game.Players:GetPlayers()) do 
-    if weifwwe.Name == game.Players.LocalPlayer.Name == false then 
-        ewoifjwoifjiwo = wwefef 
-    end 
-end 
-for m=1,ewoifjwoifjiwo do 
-    game.Players.LocalPlayer.Backpack.Couch.Name = "Oren Couch"..m 
-end 
-wait() 
-for weofefawd,iwiejguiwg in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do 
-    if iwiejguiwg.Name == "Oren Couch"..weofefawd then 
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcf
+wait()
+duping = false
+
+local couch_idx = 1
+for _, tool in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if tool.Name == "Couch" then
+        tool.Name = "Oren Couch" .. couch_idx
+        couch_idx = couch_idx + 1
+    end
+end
+
+wait()
+for _, iwiejguiwg in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if string.match(iwiejguiwg.Name, "^Oren Couch%d+$") then
         iwiejguiwg.Handle.Name = "Handle " 
-    end 
-end 
+    end
+end
 wait(0.2) 
 local function bring(skjdfuwiruwg,woiejewg) 
     if woiejewg == nil == false then 
@@ -3637,11 +3641,14 @@ local function bring(skjdfuwiruwg,woiejewg)
         game.Players.LocalPlayer.Character["Oren Couch"..skjdfuwiruwg].Parent = game.Players.LocalPlayer.Backpack 
     end 
 end 
-for mwef,weuerg in pairs(game.Players:GetPlayers()) do 
-    if weuerg.Name == game.Players.LocalPlayer.Name == false then 
-        spawn(function() bring(mwef,weuerg) end) 
-    end 
-end 
+
+local player_idx = 1
+for _, weuerg in ipairs(game.Players:GetPlayers()) do
+    if weuerg ~= game.Players.LocalPlayer then
+        task.spawn(function() bring(player_idx, weuerg) end)
+        player_idx = player_idx + 1
+    end
+end
 
 -- Function to teleport the player back to the initial position after 10 seconds
 task.delay(14, function()
@@ -9245,4 +9252,3 @@ UniversalTab:AddButton({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/SAZXHUB/Control-update/main/README.md", true))()
     end
 })
-
