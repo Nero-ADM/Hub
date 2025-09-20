@@ -1,8 +1,7 @@
 
-local Libary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nero-ADM/Hub/refs/heads/main/Hub.lua"))()
-workspace.FallenPartsDestroyHeight = -math.huge
+local Libary = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
 
-local Window = Libary:MakeWindow({
+workspace.FallenPartsDestroyHeight = -math.huge
     Title = "Oren Client | Brookhaven RP ",
     SubTitle = "by: Nero",
     LoadText = "Loading Oren Client",
